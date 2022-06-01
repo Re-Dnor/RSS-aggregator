@@ -32,6 +32,8 @@ jobs:
           cache: "npm"
 
       - name: npm install, build
-
       - run: make install
-      - run: make lint
+      - run: make build
+
+      - name: Run linter
+        run: make lint
