@@ -1,13 +1,13 @@
-import path from "path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 export default () => ({
-  mode: "development",
-  entry: "./src/index.js",
+  mode: 'development',
+  entry: './src/index.js',
   output: {
-    path: path.join(path.resolve(), "./dist"),
-    filename: "bundle.js",
+    path: path.join(path.resolve(), './dist'),
+    filename: 'bundle.js',
     clean: true,
   },
   module: {
@@ -16,19 +16,19 @@ export default () => ({
         test: /\.css$/i,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader
+            loader: MiniCssExtractPlugin.loader,
           },
-          "css-loader",
+          'css-loader',
         ],
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "index.html"
+      template: 'index.html',
     }),
     new MiniCssExtractPlugin({
-      filename: "style.css"
-    })
-  ]
+      filename: 'style.css',
+    }),
+  ],
 });
