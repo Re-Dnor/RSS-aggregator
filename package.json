@@ -5,6 +5,7 @@
   "description": "RSS агрегатор",
   "main": "./src/index.js",
   "scripts": {
+    "webpack": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,7 +29,8 @@
     "jest-cli": "^28.1.0",
     "mini-css-extract-plugin": "^2.6.0",
     "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2"
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.1"
   },
   "dependencies": {
     "bootstrap": "^5.1.3"
