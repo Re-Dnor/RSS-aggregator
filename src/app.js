@@ -1,4 +1,3 @@
-import { isEmpty } from 'lodash';
 import validate from './validate.js';
 
 export default () => {
@@ -13,7 +12,7 @@ export default () => {
     const valueFormData = formData.get('input_url');
     const valible = validate(valueFormData);
     valible.then((website) => {
-      if (isEmpty(website)) {
+      if (website === 'ValidationError') {
         input.classList.add('is-invalid');
 
         feedback.classList.add('text-danger');
