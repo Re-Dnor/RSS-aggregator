@@ -7,13 +7,13 @@ export default async (value) => {
     },
   });
 
-  let schema = yup.object().shape({
-    website: yup.string().url()
+  const schema = yup.object().shape({
+    website: yup.string().url(),
   });
   try {
     const result = await schema.validate({ website: value });
     return result;
   } catch (err) {
-    err.name;
+    return err.name;
   }
-}
+};

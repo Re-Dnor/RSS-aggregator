@@ -1,9 +1,9 @@
-import validate from './validate.js'
 import { isEmpty } from 'lodash';
+import validate from './validate.js';
 
 export default () => {
   const form = document.getElementById('rss-form');
-  const input = document.getElementById('input_url'); //?
+  const input = document.getElementById('input_url'); // ?
   const feedback = document.querySelector('.feedback');
 
   form.addEventListener('submit', (e) => {
@@ -13,7 +13,6 @@ export default () => {
     const valueFormData = formData.get('input_url');
     const valible = validate(valueFormData);
     valible.then((website) => {
-
       if (isEmpty(website)) {
         input.classList.add('is-invalid');
 
@@ -31,6 +30,6 @@ export default () => {
 
         form.reset();
       }
-    })
+    });
   });
 };
