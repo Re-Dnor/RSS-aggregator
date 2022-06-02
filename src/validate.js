@@ -1,12 +1,6 @@
 import * as yup from 'yup';
 
-export default async (value) => {
-  yup.setLocale({
-    string: {
-      website: 'Invalid url ',
-    },
-  });
-
+const validate = async (value) => {
   const schema = yup.object().shape({
     website: yup.string().url(),
   });
@@ -14,6 +8,9 @@ export default async (value) => {
     const result = await schema.validate({ website: value });
     return result;
   } catch (err) {
-    return err.name;
+    const message = err.name;
+    return message;
   }
 };
+
+export default validate;
