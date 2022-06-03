@@ -1,16 +1,11 @@
 import * as yup from 'yup';
 
-const validate = async (value) => {
+const validate = (value) => {
   const schema = yup.object().shape({
-    website: yup.string().url(),
+    url: yup.string().url(),
   });
-  try {
-    const result = await schema.validate({ website: value });
-    return result;
-  } catch (err) {
-    const message = err.name;
-    return message;
-  }
+
+  return schema.validate({ url: value });
 };
 
 export default validate;
