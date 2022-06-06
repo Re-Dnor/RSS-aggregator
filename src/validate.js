@@ -1,11 +1,14 @@
 import * as yup from 'yup';
 
-const validate = (value) => {
-  const schema = yup.object().shape({
-    url: yup.string().url(),
-  });
+export default (urlValidated, list) => {
 
-  return schema.validate({ url: value });
+  const schema = yup
+    .string()
+    .required()
+    .url('Ссылка должна быть валидным URL')
+    .notOneOf(
+      list.map((link) => link),
+      'RSS уже существует',
+    );
+  return schema.validate(urlValidated.trim());
 };
-
-export default validate;
