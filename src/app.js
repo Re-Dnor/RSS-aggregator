@@ -72,9 +72,8 @@ export default async () => {
     e.preventDefault();
     const currentLanguage = i18nextInstance.language;
     const newLanguage = currentLanguage === 'ru' ? 'en' : 'ru';
-
     i18nextInstance.changeLanguage(newLanguage);
     watchedState.language = newLanguage;
-    btnLanguage.textContent = currentLanguage;
+    btnLanguage.textContent = currentLanguage === 'ru' ? 'Русский' : 'English'
   });
 };
