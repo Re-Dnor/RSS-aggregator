@@ -1,7 +1,11 @@
+// import renderModal from './utils/renderModal.js';
+import removeChild from './utils/removeAllChildNodes.js';
+
 // RENDER ERROR____________________________
 const renderError = (elements, value, i18nextInstance) => {
   const { feedback, input } = elements;
   if (value instanceof Error) {
+    console.log(value.message);
     feedback.textContent = i18nextInstance.t(`form.errors.${value.message}`);
     feedback.classList.remove('text-success');
     feedback.classList.add('text-danger');
@@ -37,9 +41,67 @@ const renderForm = (elements, value, i18nextInstance) => {
   example.textContent = i18nextInstance.t('form.example');
 };
 
+// RENDER POSTS_____________________________________________
+const renderPosts = (elements, value, i18nextInstance) => {
+  const posts = document.querySelector('.posts');
+
+  removeChild(posts);
+
+  if (posts.length === 0) {
+    return;
+  }
+
+  const titlePosts = document.createElement('h2');
+  const listPosts = document.createElement('ul');
+
+  titlePosts.textContent = i18nextInstance.t('form.posts.title');
+  listPosts.classList.add('list-group');
+
+  posts.append(titlePosts);
+  posts.append(listPosts);
+
+  value.forEach((post) => {
+    // Вытащить description из post
+    const { title, link } = post;
+    const liPost = document.createElement('li');
+    const aPost = document.createElement('a');
+    const btnPost = document.createElement('button');
+
+    liPost.classList.add(
+      'list-group-item',
+      'd-flex',
+      'justify-content-between',
+      'align-items-start',
+    );
+
+    aPost.classList.add('fw-bold');
+    aPost.href = link;
+    aPost.setAttribute('target', '_blank');
+    aPost.setAttribute('rel', 'noopener noreferrer');
+    aPost.setAttribute('data-id', '2');
+    aPost.textContent = title;
+    aPost.onclick = () => {
+      aPost.style.color = '#8E4585';
+    };
+
+    btnPost.type = 'button';
+    btnPost.textContent = i18nextInstance.t('form.posts.button');
+    btnPost.classList.add('btn', 'btn-primary');
+    btnPost.setAttribute('data-id', '2');
+    btnPost.setAttribute('data-toggle', 'modal');
+    btnPost.setAttribute('data-target', '#modal');
+    btnPost.onclick = () => {
+      // renderModal(title, description, link, i18nextInstance);
+    };
+
+    liPost.append(aPost);
+    liPost.append(btnPost);
+    posts.append(liPost);
+  });
+};
+
 // MAIN RENDER________________________________
 const render = (elements, state, i18nextInstance) => (path, value) => {
-  // console.log(path)
   switch (path) {
     case 'form.processState':
       renderForm(elements, value, i18nextInstance);
@@ -49,6 +111,9 @@ const render = (elements, state, i18nextInstance) => (path, value) => {
       break;
     case 'form.feedback.success':
       renderSuccess(elements, value, i18nextInstance);
+      break;
+    case 'data.posts':
+      renderPosts(elements, value, i18nextInstance);
       break;
     case 'language':
       renderForm(elements, value, i18nextInstance);
