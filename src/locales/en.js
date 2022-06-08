@@ -14,10 +14,11 @@ export default {
         duplicate: 'RSS already exists',
         main: 'Something went wrong',
         empty: 'Must not be empty',
+        network: 'Network error',
       },
       posts: {
         title: 'Posts',
-        postLink: 'View',
+        button: 'View',
       },
       feeds: {
         title: 'Feeds',
