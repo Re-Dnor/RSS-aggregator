@@ -6,7 +6,7 @@ export default (urlValidated, list) => {
     .required('empty')
     .url('invalidURL')
     .notOneOf(
-      list.map((link) => link),
+      list.map(({ url }) => url),
       'duplicate',
     );
   return schema.validate(urlValidated.trim());
