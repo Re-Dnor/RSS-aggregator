@@ -1,0 +1,2 @@
+https://meduza.io/rss/all
+https://ru.hexlet.io/lessons.rss
