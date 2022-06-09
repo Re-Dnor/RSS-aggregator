@@ -1,4 +1,4 @@
-// import renderModal from './utils/renderModal.js';
+import renderModal from './utils/renderModal.js';
 import removeChild from './utils/removeAllChildNodes.js';
 
 // RENDER ERROR____________________________
@@ -42,7 +42,7 @@ const renderForm = (elements, value, i18nextInstance) => {
 };
 
 // RENDER POSTS_____________________________________________
-const renderPosts = (elements, value, i18nextInstance) => {
+const renderPosts = (value, i18nextInstance) => {
   const posts = document.querySelector('.posts');
 
   removeChild(posts);
@@ -57,12 +57,11 @@ const renderPosts = (elements, value, i18nextInstance) => {
   titlePosts.textContent = i18nextInstance.t('form.posts.title');
   listPosts.classList.add('list-group');
 
-  posts.append(titlePosts);
-  posts.append(listPosts);
-
+  posts.appendChild(titlePosts);
+  posts.appendChild(listPosts);
+  console.log(value);
   value.forEach((post) => {
-    // Вытащить description из post
-    const { title, link } = post;
+    const { title, description, link } = post;
     const liPost = document.createElement('li');
     const aPost = document.createElement('a');
     const btnPost = document.createElement('button');
@@ -86,12 +85,12 @@ const renderPosts = (elements, value, i18nextInstance) => {
 
     btnPost.type = 'button';
     btnPost.textContent = i18nextInstance.t('form.posts.button');
-    btnPost.classList.add('btn', 'btn-primary');
+    btnPost.classList.add('btn', 'btn-primary', 'btn-sm');
     btnPost.setAttribute('data-id', '2');
-    btnPost.setAttribute('data-toggle', 'modal');
-    btnPost.setAttribute('data-target', '#modal');
+    btnPost.setAttribute('data-bs-toggle', 'modal');
+    btnPost.setAttribute('data-bs-target', '#modal');
     btnPost.onclick = () => {
-      // renderModal(title, description, link, i18nextInstance);
+      renderModal(title, description, link, i18nextInstance);
     };
 
     liPost.append(aPost);
@@ -113,10 +112,11 @@ const render = (elements, state, i18nextInstance) => (path, value) => {
       renderSuccess(elements, value, i18nextInstance);
       break;
     case 'data.posts':
-      renderPosts(elements, value, i18nextInstance);
+      renderPosts(value, i18nextInstance);
       break;
     case 'language':
-      renderForm(elements, value, i18nextInstance);
+      renderPosts(state.data.posts, i18nextInstance);
+      renderForm(elements, state.form.processState, i18nextInstance);
       if (state.form.feedback.error) {
         renderError(elements, state.form.feedback.error, i18nextInstance);
       }
