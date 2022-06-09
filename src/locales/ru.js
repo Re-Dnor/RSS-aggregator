@@ -11,6 +11,7 @@ export default {
       successMessage: 'RSS успешно загружен',
       errors: {
         invalidURL: 'Ссылка должна быть валидным URL',
+        invalidFormat: 'Ресурс не содержит валидный RSS',
         duplicate: 'RSS уже существует',
         main: 'Что-то пошло не так',
         empty: 'Не должно быть пустым',

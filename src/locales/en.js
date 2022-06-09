@@ -11,6 +11,7 @@ export default {
       successMessage: 'RSS has been successfully loaded',
       errors: {
         invalidURL: 'Link must be a valid URL',
+        invalidFormat: 'The resource does not contain valid RSS',
         duplicate: 'RSS already exists',
         main: 'Something went wrong',
         empty: 'Must not be empty',
