@@ -37,11 +37,31 @@ export default async () => {
     data: {
       feeds: [],
       posts: [],
+      countPosts: 0,
     },
     language: defaultLanguages,
   };
 
   const watchedState = onChange(state, render(elements, state, i18nextInstance));
+
+  const updatePosts = () => {
+    state.data.feeds.forEach((item) => {
+      getData(item.url)
+        .then((response) => {
+          const { contents } = response.data;
+          const { posts } = parser(contents);
+          posts.forEach((post) => {
+            const { title } = post;
+            const isSaved = watchedState.data.posts.some((oldPost) => oldPost.title === title);
+            if (!isSaved) {
+              watchedState.data.posts.unshift(post);
+            }
+          });
+        });
+    });
+
+    setTimeout(updatePosts, 1000);
+  };
 
   elements.form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -51,7 +71,6 @@ export default async () => {
     validate(url, watchedState.data.feeds)
       .then((link) => getData(link))
       .then((response) => {
-        console.log(response);
         const { contents } = response.data;
         const { title, description, posts } = parser(contents);
 
@@ -62,18 +81,21 @@ export default async () => {
         });
 
         const allPosts = [...posts, ...watchedState.data.posts];
-        watchedState.data.posts = allPosts;
+
+        watchedState.data.posts = [...allPosts];
         watchedState.form.feedback.error = null;
         watchedState.form.processState = 'success';
         watchedState.form.feedback.success = true;
+        watchedState.data.countPosts = watchedState.data.posts.length;
 
         elements.form.reset();
+
+        updatePosts();
       })
       .catch((error) => {
         watchedState.form.feedback.success = false;
         watchedState.form.feedback.error = error;
         watchedState.form.processState = 'fail';
-
         elements.input.focus();
       });
   });
