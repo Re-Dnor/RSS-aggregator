@@ -1,6 +1,5 @@
 import i18next from 'i18next';
 import onChange from 'on-change';
-import _ from 'lodash';
 import validate from './utils/validate.js';
 import render from './render/render.js';
 import resources from './locales/languages.js';
@@ -52,7 +51,7 @@ export default async () => {
     validate(url, watchedState.data.feeds)
       .then((link) => getData(link))
       .then((response) => {
-        console.log(response)
+        console.log(response);
         const { contents } = response.data;
         const { title, description, posts } = parser(contents);
 

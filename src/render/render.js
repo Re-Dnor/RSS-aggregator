@@ -17,7 +17,7 @@ export default (elements, state, i18nextInstance) => (path, value) => {
       break;
     case 'data.feeds':
       renderFeeds(value, i18nextInstance);
-      break
+      break;
     case 'data.posts':
       renderPosts(value, i18nextInstance);
       break;
