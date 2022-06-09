@@ -1,2 +1,3 @@
 https://meduza.io/rss/all
 https://ru.hexlet.io/lessons.rss
+https://news.mail.ru/rss/society/91/
