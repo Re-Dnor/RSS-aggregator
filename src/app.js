@@ -63,12 +63,11 @@ export default async () => {
           id,
         });
         const getIdPosts = [...posts.map((post) => ({ ...post, feedID: id }))];
-        const allPosts = [...watchedState.data.posts, ...getIdPosts];
+        const allPosts = [...getIdPosts, ...watchedState.data.posts];
         watchedState.data.posts = allPosts;
         watchedState.form.feedback.error = null;
         watchedState.form.processState = 'success';
         watchedState.form.feedback.success = true;
-        console.log(state);
 
         elements.form.reset();
       })
