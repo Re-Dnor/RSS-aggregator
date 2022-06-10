@@ -3,6 +3,7 @@ import renderSuccess from './renderSuccess.js';
 import renderForm from './renderForm.js';
 import renderFeeds from './renderFeeds.js';
 import renderPosts from './renderPosts.js';
+import translate from '../utils/translatePosts.js';
 
 export default (elements, state, i18nextInstance) => (path, value) => {
   switch (path) {
@@ -22,8 +23,8 @@ export default (elements, state, i18nextInstance) => (path, value) => {
       renderPosts(value, i18nextInstance);
       break;
     case 'language':
-      renderPosts(state.data.posts, i18nextInstance);
       renderFeeds(state.data.feeds, i18nextInstance);
+      translate(i18nextInstance);
       renderForm(elements, i18nextInstance);
 
       if (state.form.feedback.error) {

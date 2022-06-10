@@ -37,7 +37,6 @@ export default async () => {
     data: {
       feeds: [],
       posts: [],
-      countPosts: 0,
     },
     language: defaultLanguages,
   };
@@ -52,21 +51,20 @@ export default async () => {
           const { posts } = parser(contents);
           posts.forEach((post) => {
             const { title } = post;
-            const isSaved = watchedState.data.posts.some((oldPost) => oldPost.title === title);
+            const oldtPosts = state.data.posts.flat(1);
+            const isSaved = oldtPosts.some((oldPost) => oldPost.title === title);
             if (!isSaved) {
-              watchedState.data.posts.unshift(post);
+              watchedState.data.posts.push([post]);
             }
           });
         });
     });
-
     setTimeout(updatePosts, 5000);
   };
 
   elements.form.addEventListener('submit', (e) => {
     e.preventDefault();
     elements.button.disabled = true;
-
     const formData = new FormData(e.target);
     const url = formData.get('rss-input');
 
@@ -82,21 +80,14 @@ export default async () => {
           url,
         });
 
-        const allPosts = [...posts, ...watchedState.data.posts];
-
-        watchedState.data.posts = [...allPosts];
+        watchedState.data.posts.push(posts);
         watchedState.form.feedback.error = null;
         watchedState.form.processState = 'success';
         watchedState.form.feedback.success = true;
-        watchedState.data.countPosts = watchedState.data.posts.length;
 
-        // elements.form.reset();
         elements.input.value = '';
 
-
-        setTimeout(() => {
-          elements.button.disabled = false;
-        }, 500);
+        elements.button.disabled = false;
 
         updatePosts();
       })
@@ -105,6 +96,7 @@ export default async () => {
         watchedState.form.feedback.error = error;
         watchedState.form.processState = 'fail';
         elements.input.focus();
+        elements.button.disabled = false;
       });
   });
 
