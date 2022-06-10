@@ -1,4 +1,0 @@
-https://news.rambler.ru/rss/Russia/?limit=100
-https://ru.hexlet.io/lessons.rss
-https://news.mail.ru/rss/society/91/
-http://feedproxy.google.com/typepad/alleyinsider/silicon_alley_insider
