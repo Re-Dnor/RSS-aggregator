@@ -21,7 +21,7 @@ export default async () => {
     feedback: document.querySelector('.feedback'),
     title: document.querySelector('h1'),
     subtitle: document.querySelector('.lead'),
-    button: document.querySelector('.col-auto'),
+    button: document.getElementById('btn-submit'),
     example: document.querySelector('.text-muted'),
     label: document.querySelector('.text-dark'),
   };
@@ -89,6 +89,11 @@ export default async () => {
         watchedState.data.countPosts = watchedState.data.posts.length;
 
         elements.form.reset();
+
+        elements.button.disabled = true;
+        setTimeout(() => {
+          elements.button.disabled = false;
+        }, 700);
 
         updatePosts();
       })

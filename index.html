@@ -8,15 +8,7 @@
   </head>
   <body class="d-flex min-vh-100 flex-column">
     <main class="flex-grow-1">
-      <div
-        class="modal fade"
-        id="modal"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabindex="-1"
-        aria-labelledby="staticBackdropLabel"
-        aria-hidden="true"
-      >
+      <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -62,7 +54,9 @@
                     <label class="text-dark" for="input_1">RSS Ссылка</label>
                   </div>
                 </div>
-                <button type="submit" class="col-auto btn btn-lg btn-primary px-5 ms-2">Добавить</button>
+                <button type="submit" id="btn-submit" class="col-auto btn btn-lg btn-primary px-5 ms-2">
+                  Добавить
+                </button>
               </div>
             </form>
             <p class="text-muted mt-2 mb-0" id="example">Пример: https://ru.hexlet.io/lessons.rss</p>
