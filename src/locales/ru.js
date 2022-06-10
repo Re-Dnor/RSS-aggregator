@@ -15,7 +15,7 @@ export default {
         duplicate: 'RSS уже существует',
         main: 'Что-то пошло не так',
         empty: 'Не должно быть пустым',
-        network: 'Сетевая ошибка',
+        network: 'Ошибка сети',
       },
       posts: {
         title: 'Посты',

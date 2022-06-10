@@ -5,7 +5,7 @@ export default {
       subtitle: "Commencer à lire connard! c'est juste",
     },
     form: {
-      button: 'Фjouter',
+      button: 'Ajouter',
       label: 'RSS lien',
       example: 'Exemple: https://ru.hexlet.io/lessons.rss',
       successMessage: 'Сhargé avec succès',
