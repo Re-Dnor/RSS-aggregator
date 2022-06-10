@@ -85,7 +85,7 @@ export default async () => {
         watchedState.form.processState = 'success';
         watchedState.form.feedback.success = true;
 
-        elements.input.value = '';
+        elements.form.reset();
 
         elements.button.disabled = false;
 
