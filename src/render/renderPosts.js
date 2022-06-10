@@ -39,7 +39,8 @@ export default (value, i18nextInstance) => {
     aPost.setAttribute('data-id', '2');
     aPost.textContent = title;
     aPost.onclick = () => {
-      aPost.style.color = '#8E4585';
+      aPost.classList.remove('fw-bold');
+      aPost.classList.add('fw-normal');
     };
 
     btnPost.type = 'button';
@@ -49,6 +50,8 @@ export default (value, i18nextInstance) => {
     btnPost.setAttribute('data-bs-toggle', 'modal');
     btnPost.setAttribute('data-bs-target', '#modal');
     btnPost.onclick = () => {
+      aPost.classList.remove('fw-bold');
+      aPost.classList.add('fw-normal');
       renderModal(title, description, link, i18nextInstance);
     };
 
