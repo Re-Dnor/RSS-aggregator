@@ -60,7 +60,7 @@ export default async () => {
         });
     });
 
-    setTimeout(updatePosts, 1000);
+    setTimeout(updatePosts, 5000);
   };
 
   elements.form.addEventListener('submit', (e) => {
@@ -100,13 +100,11 @@ export default async () => {
       });
   });
 
-  const btnLanguage = document.querySelector('.language-change');
-  btnLanguage.addEventListener('click', (e) => {
-    e.preventDefault();
-    const currentLanguage = i18nextInstance.language;
-    const newLanguage = currentLanguage === 'ru' ? 'en' : 'ru';
+  const select = document.querySelector('.form-select');
+  select.addEventListener('change', (e) => {
+    const newLanguage = e.target.value;
     i18nextInstance.changeLanguage(newLanguage);
     watchedState.language = newLanguage;
-    btnLanguage.textContent = currentLanguage === 'ru' ? 'Русский' : 'English';
-  });
+    console.log(newLanguage)
+  })
 };
