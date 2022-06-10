@@ -1,4 +1,4 @@
-export default {
+const ru = {
   translation: {
     header: {
       title: 'RSS агрегатор',
@@ -31,3 +31,5 @@ export default {
     },
   },
 };
+
+export default ru;
