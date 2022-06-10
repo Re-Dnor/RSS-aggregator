@@ -3,12 +3,17 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 export default () => ({
-  mode: 'production',
+  mode: 'development',
   entry: './src/index.js',
   output: {
     path: path.join(path.resolve(), './dist'),
     filename: 'bundle.js',
     clean: true,
+  },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
   },
   module: {
     rules: [
