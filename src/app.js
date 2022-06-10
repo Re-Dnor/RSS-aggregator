@@ -105,6 +105,5 @@ export default async () => {
     const newLanguage = e.target.value;
     i18nextInstance.changeLanguage(newLanguage);
     watchedState.language = newLanguage;
-    console.log(newLanguage)
-  })
+  });
 };
