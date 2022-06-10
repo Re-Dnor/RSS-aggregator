@@ -65,6 +65,8 @@ export default async () => {
 
   elements.form.addEventListener('submit', (e) => {
     e.preventDefault();
+    elements.button.disabled = true;
+
     const formData = new FormData(e.target);
     const url = formData.get('rss-input');
 
@@ -88,12 +90,13 @@ export default async () => {
         watchedState.form.feedback.success = true;
         watchedState.data.countPosts = watchedState.data.posts.length;
 
-        elements.form.reset();
+        // elements.form.reset();
+        elements.input.value = '';
 
-        elements.button.disabled = true;
+
         setTimeout(() => {
           elements.button.disabled = false;
-        }, 700);
+        }, 500);
 
         updatePosts();
       })
