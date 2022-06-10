@@ -2,7 +2,7 @@ install:
 	npm ci
 
 build:
-	NODE_ENV=production npx webpack
+	npm run build
 
 open:
 	npx webpack serve
