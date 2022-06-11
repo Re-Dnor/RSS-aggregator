@@ -64,32 +64,29 @@ export default async () => {
 
   elements.form.addEventListener('submit', (e) => {
     e.preventDefault();
-    elements.button.disabled = true;
 
     const formData = new FormData(e.target);
     const url = formData.get('rss-input');
 
     validate(url, watchedState.data.feeds)
-      .then((link) => getData(link))
+      .then((link) => {
+        elements.button.disabled = true;
+        elements.input.disabled = true;
+        return getData(link);
+      })
       .then((response) => {
         const { contents } = response.data;
         const { title, description, posts } = parser(contents);
-
+        elements.input.value = '';
         watchedState.data.feeds.unshift({
           title,
           description,
           url,
         });
         watchedState.data.posts.push(posts);
-
-        elements.input.disabled = true;
-
         watchedState.form.feedback.error = null;
         watchedState.form.processState = 'success';
         watchedState.form.feedback.success = true;
-
-        elements.input.value = '';
-
         updatePosts();
       })
       .catch((error) => {

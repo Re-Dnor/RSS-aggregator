@@ -1,9 +1,9 @@
 import axios from 'axios';
-import proxify from './proxify.js';
 
-export default (link) => {
-  const urlProxified = proxify(link);
-  return axios.get(urlProxified)
+export default (url) => {
+  const uri = encodeURIComponent(url);
+  const proxy = `https://allorigins.hexlet.app/get?disableCache=true&url=${uri}`;
+  return axios.get(proxy)
     .catch(() => {
       throw new Error('network');
     });
