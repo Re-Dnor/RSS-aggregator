@@ -6,15 +6,20 @@ import renderPosts from './renderPosts.js';
 import translate from '../utils/translatePosts.js';
 
 export default (elements, state, i18nextInstance) => (path, value) => {
+  const { button, input } = elements;
   switch (path) {
     case 'form.processState':
       renderForm(elements, i18nextInstance);
       break;
     case 'form.feedback.error':
       renderError(elements, value, i18nextInstance);
+      button.disabled = false;
+      input.disabled = false;
       break;
     case 'form.feedback.success':
       renderSuccess(elements, value, i18nextInstance);
+      button.disabled = false;
+      input.disabled = false;
       break;
     case 'data.feeds':
       renderFeeds(value, i18nextInstance);
