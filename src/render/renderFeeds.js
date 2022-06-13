@@ -32,4 +32,4 @@ export default (value, i18nextInstance) => {
   wrapperFeed.append(headerFeed);
   wrapperFeed.append(descriptionFeed);
   listElement.prepend(wrapperFeed);
-}
+};

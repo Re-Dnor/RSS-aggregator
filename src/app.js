@@ -41,9 +41,9 @@ export default async () => {
     },
     language: defaultLanguages,
   };
-  //Отслеживать изменения в state
+  // Отслеживать изменения в state
   const watchedState = onChange(state, view(elements, state, i18nextInstance));
-  //Обновление постов в заданном интервале
+  // Обновление постов в заданном интервале
   const updatePosts = () => {
     state.data.feeds.forEach((item) => {
       getData(item.url)
@@ -62,7 +62,7 @@ export default async () => {
     });
     setTimeout(updatePosts, 5000);
   };
-  //Отправка формы
+  // Отправка формы
   elements.form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -96,7 +96,7 @@ export default async () => {
         elements.input.focus();
       });
   });
-  //Переключение языка
+  // Переключение языка
   const select = document.querySelector('.form-select');
   select.addEventListener('change', (e) => {
     const newLanguage = e.target.value;
