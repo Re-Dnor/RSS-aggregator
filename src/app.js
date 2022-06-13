@@ -1,10 +1,11 @@
 import i18next from 'i18next';
 import onChange from 'on-change';
 import validate from './utils/validate.js';
-import render from './render/render.js';
+import view from './render/view.js';
 import resources from './locales/languages.js';
 import getData from './utils/getData.js';
-import parser from './utils/parser.js';
+import parser from './utils/parse.js';
+import disableTheForm from './utils/disableForm.js';
 
 export default async () => {
   const defaultLanguages = 'ru';
@@ -40,9 +41,9 @@ export default async () => {
     },
     language: defaultLanguages,
   };
-
-  const watchedState = onChange(state, render(elements, state, i18nextInstance));
-
+  //Отслеживать изменения в state
+  const watchedState = onChange(state, view(elements, state, i18nextInstance));
+  //Обновление постов в заданном интервале
   const updatePosts = () => {
     state.data.feeds.forEach((item) => {
       getData(item.url)
@@ -61,7 +62,7 @@ export default async () => {
     });
     setTimeout(updatePosts, 5000);
   };
-
+  //Отправка формы
   elements.form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -70,15 +71,14 @@ export default async () => {
 
     validate(url, watchedState.data.feeds)
       .then((link) => {
-        elements.button.disabled = true;
-        elements.input.disabled = true;
+        disableTheForm(elements);
         return getData(link);
       })
       .then((response) => {
         const { contents } = response.data;
         const { title, description, posts } = parser(contents);
-        elements.input.value = '';
-        watchedState.data.feeds.unshift({
+        elements.form.reset();
+        watchedState.data.feeds.push({
           title,
           description,
           url,
@@ -96,7 +96,7 @@ export default async () => {
         elements.input.focus();
       });
   });
-
+  //Переключение языка
   const select = document.querySelector('.form-select');
   select.addEventListener('change', (e) => {
     const newLanguage = e.target.value;

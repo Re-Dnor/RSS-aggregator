@@ -1,36 +1,35 @@
-import removeChild from '../utils/removeChild.js';
-
 export default (value, i18nextInstance) => {
-  const feeds = document.querySelector('.feeds');
-  removeChild(feeds);
+  const feedsElement = document.querySelector('.feeds');
+  const createElementPosts = () => {
+    const titleFeeds = document.createElement('h2');
+    const listElement = document.createElement('ul');
+    return [titleFeeds, listElement];
+  };
 
-  if (value.length === 0) {
-    return;
-  }
+  const [titleFeeds, listElement] = feedsElement.childNodes.length === 0 ? createElementPosts() : [document.getElementById('title-feeds'), document.getElementById('list-feeds')];
 
-  const titleFeeds = document.createElement('h2');
-  const listFeeds = document.createElement('ul');
-
+  feedsElement.append(titleFeeds);
   titleFeeds.textContent = i18nextInstance.t('form.feeds.title');
-  listFeeds.classList.add('list-group', 'rounded-0');
+  titleFeeds.setAttribute('id', 'title-feeds');
 
-  feeds.append(titleFeeds);
-  feeds.append(listFeeds);
+  feedsElement.append(listElement);
+  listElement.classList.add('list-group', 'rounded-0');
+  listElement.setAttribute('id', 'list-feeds');
 
-  value.forEach((feed) => {
-    const { title, description } = feed;
-    const liFeed = document.createElement('li');
-    const liTitle = document.createElement('h3');
-    const liDescrp = document.createElement('p');
+  const lastFeed = value[value.length - 1];
+  const { title, description } = lastFeed;
+  const wrapperFeed = document.createElement('li');
+  const headerFeed = document.createElement('h3');
+  const descriptionFeed = document.createElement('p');
 
-    liFeed.classList.add('list-group-item', 'border-end-0', 'border-0');
-    liTitle.classList.add('h6', 'm-0');
-    liDescrp.classList.add('m-0', 'small', 'text-black-50');
-    liTitle.textContent = title;
-    liDescrp.textContent = description;
+  wrapperFeed.classList.add('list-group-item', 'border-end-0', 'border-0');
+  headerFeed.classList.add('h6', 'm-0');
+  descriptionFeed.classList.add('m-0', 'small', 'text-black-50');
 
-    liFeed.append(liTitle);
-    liFeed.append(liDescrp);
-    listFeeds.append(liFeed);
-  });
-};
+  headerFeed.textContent = title;
+  descriptionFeed.textContent = description;
+
+  wrapperFeed.append(headerFeed);
+  wrapperFeed.append(descriptionFeed);
+  listElement.prepend(wrapperFeed);
+}
