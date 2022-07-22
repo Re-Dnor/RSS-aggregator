@@ -2,11 +2,18 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default () => ({
-  mode: 'production',
-  entry: './src/index.js',
+  devtool: 'eval-source-map',
+  mode: 'development',
+  entry: {
+    index: {
+      import: './src/index.js',
+      dependOn: 'shared',
+    },
+    shared: ['axios', 'bootstrap', 'i18next', 'on-change', 'yup'],
+  },
   output: {
     path: path.join(path.resolve(), './dist'),
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     clean: true,
   },
   module: {
